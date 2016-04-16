@@ -22,12 +22,12 @@ gulp.task('component-creator', function(){
 								  globalConfig['appPath'].toString(),
 								  componentConfig['componentNodeName'].toString());
 	console.log('appOutputPath='+appOutputPath);
-	generateFromSample(sampleBasePath+'/app/.content.xml',componentConfig,appOutputPath);
+	generateFromSample(sampleBasePath+'/app/*.xml',componentConfig,appOutputPath);
 	
 	var javaUseClassPath=componentConfig['bundlePackageName']+"."+componentConfig['componentNodeName'];
 	var replaceList=componentConfig;
 	replaceList['javaUseClass']=javaUseClassPath;
-	generateFromSample(sampleBasePath + '/app/component.xml', replaceList,
+	generateFromSample(sampleBasePath + '/app/component.html', replaceList,
 						appOutputPath, componentConfig['componentNodeName'] + '.html');
 			
 
