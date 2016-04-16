@@ -1,0 +1,9 @@
+{
+    "componentNodeName": ["sampleComponent"],
+    "title": ["sample Component Title"],
+    "description": ["sample Component description"],
+    "componentGroup": ["sample Component Group"],
+    "appPath": [""],
+    "etcPath": [""]
+	
+}
