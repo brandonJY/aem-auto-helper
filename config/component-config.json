@@ -1,8 +1,10 @@
 {
-    "componentNodeName": ["sampleComponent"],
+    "componentNodeName": ["sampleComponentDemo"],
     "title": ["sample Component Title"],
-    "description": ["sample Component description"],
+    "description": ["sample Component descriptions"],
     "componentGroup": ["sample Component Group"],
+    "overwriteExist":true,
+    "bundlePackageName":["com.brandonjiangt.component"],
     "appPath": [""],
     "etcPath": [""]
 	

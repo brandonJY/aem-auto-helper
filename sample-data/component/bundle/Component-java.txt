@@ -1,0 +1,18 @@
+package [[bundlePackageName]];
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.adobe.cq.sightly.WCMUse;
+
+public class [[componentNodeName]] extends WCMUse {
+	
+	private Logger LOG = LoggerFactory.getLogger([[componentNodeName]].class);
+
+	@Override
+	public void activate() throws Exception {
+		//String[] values = getProperties().get("sample-properties", String[].class);
+	}
+
+
+}

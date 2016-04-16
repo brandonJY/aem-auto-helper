@@ -1,6 +1,7 @@
 {
-    "srcBase": ["/home/stevevin/Documents/perficient1/cq training/gulp/output-sample/"],
+    "srcBase": ["output-sample/"],
     "projectName": ["training-aem"],
+    "bundlePath":["bundle/src/java/"],
     "appPath": [""],
     "etcPath": [""]
   
