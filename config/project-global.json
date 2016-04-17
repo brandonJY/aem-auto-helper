@@ -1,9 +1,10 @@
 {
     "srcBase": "output-sample/",
-    "projectName": "training-aem",
+    "projectName": "aemtraining",
+    
     "bundlePath":"bundle/src/main/java/",
     "bundleTestPath":"bundle/src/test/java/",
-    "appPath": "",
-    "etcPath": ""
+    "appPath": "ui.apps/src/main/content/jcr_root/apps/brandonjiangt/components/",
+    "etcPath": "ui.apps/src/main/content/jcr_root/etc/design/brandonjiangt/component/"
   
 }

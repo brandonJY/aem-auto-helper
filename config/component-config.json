@@ -3,12 +3,40 @@
     "title": "sample Component Title",
     "description": "sample Component descriptions",
     "componentGroup": "sample Component Group",
-    "overwriteExist":true,
+    
     "bundlePackageName":"com.brandonjiangt.component",
+    
+    "overwriteExist":true,
+    
     "createJavaUseClass":true,
     "createJunit":true,
     "createClientLib":true,
-    "appPath": "",
-    "etcPath": ""
+    "clientLibName":"",
+    "targetPath":{
+    				"appXml":
+							{
+					        	"_example":"appPath/componentName/",
+					        	"outputPath":""
+							 },
+					"html":
+							{
+						      	"_example":"appPath/componentName/",
+						      	"outputPath":""
+							},
+					"createClientLib":
+							{
+					        	"_example":"etcPath/componentName/",
+					        	"outputPath":""
+							 },
+					"createJavaUseClass":
+							{
+						    	"_example":"javaClassFolder/",
+						    	"outputPath":""
+							},
+					"createJunit":
+							{
+								"outputPath":""
+							}
+    			}
 	
 }

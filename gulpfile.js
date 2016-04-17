@@ -19,6 +19,9 @@ gulp.task('component-creator', function(){
 								  globalConfig['appPath'],
 								  componentConfig['componentNodeName']
 								  );
+	if(componentConfig['clientLibName'].length<=0)
+		componentConfig['clientLibName']= globalConfig['projectName']+'.'+componentConfig['componentNodeName'];
+			
 	var listFile={
 					'appXml':
 							{
@@ -28,10 +31,18 @@ gulp.task('component-creator', function(){
 					'html':
 							{
 						      	'sampleSrcPath':sampleBasePath + '/app/component.html',
-						    	'outputPath':appOutputPath,
-						    	'config':{'javaUseClass':componentConfig['bundlePackageName']+'.'+componentConfig['componentNodeName']},
+						      	'config':{'javaUseClass':componentConfig['bundlePackageName']+'.'+componentConfig['componentNodeName']},
+						      	'outputPath':appOutputPath,
 						    	'renameFile':componentConfig['componentNodeName'] + '.html'
 							},
+					'createClientLib':
+							{
+					          	'sampleSrcPath':sampleBasePath+'/etc/clientlib/*',
+					        	'outputPath':path.join(globalConfig['srcBase'],
+														  globalConfig['etcPath'],
+														  componentConfig['componentNodeName']
+														 )
+							 },
 					'createJavaUseClass':
 							{
 								'sampleSrcPath':sampleBasePath + '/bundle/Component-java.txt',
@@ -44,11 +55,11 @@ gulp.task('component-creator', function(){
 					'createJunit':
 					{
 						'sampleSrcPath':sampleBasePath + '/bundle/Component-junit.txt',
-				    	'outputPath':path.join(globalConfig['srcBase'].toString(),
+						'config':{'javaClassName':componentConfig['componentNodeName'] + 'Test'},
+						'outputPath':path.join(globalConfig['srcBase'].toString(),
 							 					globalConfig['bundleTestPath'].toString(),
 							 					componentConfig['bundlePackageName'].toString().replace(/\./g, "/")
 							 				  ),
-		 				'config':{'javaClassName':componentConfig['componentNodeName'] + 'Test'},
 				    	'renameFile':componentConfig['componentNodeName'] + 'Test.java'
 					}
 							
@@ -66,7 +77,10 @@ gulp.task('component-creator', function(){
 				}
 				oneSet['config']=config;	
 				
-				console.log(p + '=' + oneSet['sampleSrcPath']);
+				if(config['targetPath'][p]['outputPath'].length>0)
+					oneSet['outputPath']=config['targetPath'][p]['outputPath'];
+				
+				console.log(p + '=' + oneSet['outputPath']);
 				generateFromSample(oneSet['sampleSrcPath'], oneSet['config'],
 									oneSet['outputPath'], oneSet['renameFile']
 								  );
