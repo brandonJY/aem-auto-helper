@@ -1,11 +1,14 @@
 {
-    "componentNodeName": ["sampleComponentDemo"],
-    "title": ["sample Component Title"],
-    "description": ["sample Component descriptions"],
-    "componentGroup": ["sample Component Group"],
+    "componentNodeName": "sampleComponentDemo",
+    "title": "sample Component Title",
+    "description": "sample Component descriptions",
+    "componentGroup": "sample Component Group",
     "overwriteExist":true,
-    "bundlePackageName":["com.brandonjiangt.component"],
-    "appPath": [""],
-    "etcPath": [""]
+    "bundlePackageName":"com.brandonjiangt.component",
+    "createJavaUseClass":true,
+    "createJunit":true,
+    "createClientLib":true,
+    "appPath": "",
+    "etcPath": ""
 	
 }

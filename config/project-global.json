@@ -1,8 +1,9 @@
 {
-    "srcBase": ["output-sample/"],
-    "projectName": ["training-aem"],
-    "bundlePath":["bundle/src/java/"],
-    "appPath": [""],
-    "etcPath": [""]
+    "srcBase": "output-sample/",
+    "projectName": "training-aem",
+    "bundlePath":"bundle/src/main/java/",
+    "bundleTestPath":"bundle/src/test/java/",
+    "appPath": "",
+    "etcPath": ""
   
 }

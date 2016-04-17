@@ -15,39 +15,71 @@ gulp.task('component-creator', function(){
 	
 	if(componentConfig['overwriteExist']==true) console.log('overwrite Mode on');
 	
-	/*
-	 * Generate app/component.html app/.content.xml
-	 */
-	var appOutputPath = path.join(globalConfig['srcBase'].toString(),
-								  globalConfig['appPath'].toString(),
-								  componentConfig['componentNodeName'].toString());
-	console.log('appOutputPath='+appOutputPath);
-	generateFromSample(sampleBasePath+'/app/*.xml',componentConfig,appOutputPath);
+	var appOutputPath = path.join(globalConfig['srcBase'],
+								  globalConfig['appPath'],
+								  componentConfig['componentNodeName']
+								  );
+	var listFile={
+					'appXml':
+							{
+					          	'sampleSrcPath':sampleBasePath+'/app/*.xml',
+					        	'outputPath':appOutputPath
+							 },
+					'html':
+							{
+						      	'sampleSrcPath':sampleBasePath + '/app/component.html',
+						    	'outputPath':appOutputPath,
+						    	'config':{'javaUseClass':componentConfig['bundlePackageName']+'.'+componentConfig['componentNodeName']},
+						    	'renameFile':componentConfig['componentNodeName'] + '.html'
+							},
+					'createJavaUseClass':
+							{
+								'sampleSrcPath':sampleBasePath + '/bundle/Component-java.txt',
+						    	'outputPath':path.join(globalConfig['srcBase'].toString(),
+									 					globalConfig['bundlePath'].toString(),
+									 					componentConfig['bundlePackageName'].toString().replace(/\./g, "/")
+									 				  ),
+						    	'renameFile':componentConfig['componentNodeName'] + '.java'
+							},
+					'createJunit':
+					{
+						'sampleSrcPath':sampleBasePath + '/bundle/Component-junit.txt',
+				    	'outputPath':path.join(globalConfig['srcBase'].toString(),
+							 					globalConfig['bundleTestPath'].toString(),
+							 					componentConfig['bundlePackageName'].toString().replace(/\./g, "/")
+							 				  ),
+		 				'config':{'javaClassName':componentConfig['componentNodeName'] + 'Test'},
+				    	'renameFile':componentConfig['componentNodeName'] + 'Test.java'
+					}
+							
+				};
 	
-	var javaUseClassPath=componentConfig['bundlePackageName']+"."+componentConfig['componentNodeName'];
-	var replaceList=componentConfig;
-	replaceList['javaUseClass']=javaUseClassPath;
-	generateFromSample(sampleBasePath + '/app/component.html', replaceList,
-						appOutputPath, componentConfig['componentNodeName'] + '.html');
-			
-
-	/*
-	 * Generate bundle/src/component.java
-	 */
-	var bundleOutputPath = path.join(globalConfig['srcBase'].toString(),
-									 globalConfig['bundlePath'].toString(),
-									 componentConfig['bundlePackageName'].toString().replace(/\./g, "/"));
-	console.log('bundleOutputPath='+bundleOutputPath);
-	generateFromSample(sampleBasePath + '/bundle/Component-java.txt',
-						componentConfig, bundleOutputPath,
-						componentConfig['componentNodeName'] + '.java');
-		
+	for (var p in listFile) {
+		if(componentConfig[p]!==undefined&&componentConfig[p]==false) {}
+		else{
+				var oneSet=listFile[p];
+				
+				var config=componentConfig;
+				if(oneSet['config']) {
+					for(var c in oneSet['config'])
+						config[c]=oneSet['config'][c];
+				}
+				oneSet['config']=config;	
+				
+				console.log(p + '=' + oneSet['sampleSrcPath']);
+				generateFromSample(oneSet['sampleSrcPath'], oneSet['config'],
+									oneSet['outputPath'], oneSet['renameFile']
+								  );
+			}
+	}
+	
 });
 gulp.task('watch', function() {
-  var watcher=gulp.watch('gulpfile.js');
+  var watcher=gulp.watch('component-config.json',['component-creator']);
+  /*
   watcher.on('change', function(event) {
-     del('output-sample/*');
   });
+  */
 });
 
 gulp.task('default', ['component-creator'], function() {
@@ -63,7 +95,7 @@ function generateFromSample(samplePath,config,outputPath,renameFile){
 			}
 			var stream=gulp.src(samplePath,{ dot:true });
 			replaceWithValueInConfig(stream,config);
-			if(renameFile)
+			if(renameFile!==undefined&&renameFile.length>0)
 				stream.pipe(concat(renameFile))
 				.pipe(gulp.dest(outputPath));
 			else stream.pipe(gulp.dest(outputPath));
