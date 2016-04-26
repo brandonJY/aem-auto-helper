@@ -1,0 +1,6 @@
+*.*~
+gulp.zip
+node_modules/
+output-sample/
+/.project
+/.settings/
