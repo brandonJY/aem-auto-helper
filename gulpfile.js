@@ -21,7 +21,8 @@ gulp.task('component-creator', function(){
 								  );
 	if(componentConfig['clientLibName'].length<=0)
 		componentConfig['clientLibName']= globalConfig['projectName']+'.'+componentConfig['componentNodeName'];
-			
+	
+	var javaUseClass=componentConfig['componentNodeName'].substr(0,1).toUpperCase()+componentConfig['componentNodeName'].substr(1);
 	var listFile={
 					'appXml':
 							{
@@ -31,7 +32,7 @@ gulp.task('component-creator', function(){
 					'html':
 							{
 						      	'sampleSrcPath':sampleBasePath + '/app/component.html',
-						      	'config':{'javaUseClass':componentConfig['bundlePackageName']+'.'+componentConfig['componentNodeName']},
+						      	'config':{'javaUseClass':componentConfig['bundlePackageName']+'.'+javaUseClass},
 						      	'outputPath':appOutputPath,
 						    	'renameFile':componentConfig['componentNodeName'] + '.html'
 							},
@@ -46,21 +47,28 @@ gulp.task('component-creator', function(){
 					'createJavaUseClass':
 							{
 								'sampleSrcPath':sampleBasePath + '/bundle/Component-java.txt',
-						    	'outputPath':path.join(globalConfig['srcBase'].toString(),
-									 					globalConfig['bundlePath'].toString(),
-									 					componentConfig['bundlePackageName'].toString().replace(/\./g, "/")
+						    	'outputPath':path.join(globalConfig['srcBase'],
+									 					globalConfig['bundlePath'],
+									 					componentConfig['bundlePackageName'].replace(/\./g, "/")
 									 				  ),
-						    	'renameFile':componentConfig['componentNodeName'] + '.java'
+				 				'config' : { 'javaClassName' : javaUseClass},
+						    	'renameFile':javaUseClass+ '.java'
 							},
 					'createJunit':
 					{
 						'sampleSrcPath':sampleBasePath + '/bundle/Component-junit.txt',
-						'config':{'javaClassName':componentConfig['componentNodeName'] + 'Test'},
-						'outputPath':path.join(globalConfig['srcBase'].toString(),
-							 					globalConfig['bundleTestPath'].toString(),
-							 					componentConfig['bundlePackageName'].toString().replace(/\./g, "/")
+						'config' : {
+										'javaClassName' : javaUseClass+ 'Test',
+										'targetTestClassPath': componentConfig['bundlePackageName']+'.'+javaUseClass,
+										'targetClassName':javaUseClass,
+										'classVar':componentConfig['componentNodeName'].substr(0,1).toLocaleLowerCase()+
+												   componentConfig['componentNodeName'].substr(1)
+									},
+						'outputPath':path.join(globalConfig['srcBase'],
+							 					globalConfig['bundleTestPath'],
+							 					componentConfig['bundlePackageName'].replace(/\./g, "/")
 							 				  ),
-				    	'renameFile':componentConfig['componentNodeName'] + 'Test.java'
+				    	'renameFile':javaUseClass+ 'Test.java'
 					}
 							
 				};

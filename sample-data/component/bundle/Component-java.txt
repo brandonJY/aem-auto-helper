@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUse;
 
-public class [[componentNodeName]] extends WCMUse {
+public class [[javaClassName]] extends WCMUse {
 	
-	private Logger LOG = LoggerFactory.getLogger([[componentNodeName]].class);
+	private Logger LOG = LoggerFactory.getLogger([[javaClassName]].class);
 
 	@Override
 	public void activate() throws Exception {
