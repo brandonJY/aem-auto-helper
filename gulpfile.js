@@ -7,7 +7,7 @@ var concat = require('gulp-concat');
 var replace = require('gulp-replace');
 
 var globalConfig = require('./config/project-global.json');
-
+require('events').EventEmitter.prototype._maxListeners = 80;
 
 gulp.task('component-creator', function(){
 	var componentConfig = require('./config/component-config.json');
